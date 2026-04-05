@@ -20,6 +20,25 @@ main {
   border-radius: 8px;
 }
 
+/* Clean up Google Docs styles */
+#content {
+  line-height: 1.6;
+}
+
+#content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#content td, #content th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#content h1, #content h2, #content h3 {
+  margin-top: 1.2em;
+}
+
 footer {
   text-align: center;
   padding: 20px;
