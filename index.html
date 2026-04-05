@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Teen Maker Event</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -12,7 +12,6 @@
   </header>
 
   <main>
-    <!-- Google Doc content loads here -->
     <div id="content">Loading...</div>
   </main>
 
@@ -21,12 +20,18 @@
   </footer>
 
   <script>
-    fetch('content.html')   // <-- your exported Google Doc file
+    fetch('content.html')
       .then(res => res.text())
       .then(html => {
-        // Extract only the body content (avoids duplicate <html>, <head>, etc.)
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
+
+        // 1. Copy styles from the Google Doc
+        doc.querySelectorAll('style').forEach(style => {
+          document.head.appendChild(style.cloneNode(true));
+        });
+
+        // 2. Inject the body content
         document.getElementById('content').innerHTML = doc.body.innerHTML;
       })
       .catch(err => {
