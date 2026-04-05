@@ -26,13 +26,33 @@
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
 
-        // 1. Copy styles from the Google Doc
+        const containerId = "#content";
+
+        // 1. Scope all <style> rules to #content
         doc.querySelectorAll('style').forEach(style => {
-          document.head.appendChild(style.cloneNode(true));
+          let scopedCSS = style.innerHTML;
+
+          // Prefix each selector with #content
+          scopedCSS = scopedCSS.replace(/(^|\})\s*([^{]+)/g, (match, brace, selector) => {
+            // Skip @ rules like @media
+            if (selector.includes('@')) return match;
+            
+            const scopedSelector = selector
+              .split(',')
+              .map(s => `${containerId} ${s.trim()}`)
+              .join(', ');
+
+            return `${brace} ${scopedSelector}`;
+          });
+
+          const newStyle = document.createElement('style');
+          newStyle.innerHTML = scopedCSS;
+          document.head.appendChild(newStyle);
         });
 
-        // 2. Inject the body content
-        document.getElementById('content').innerHTML = doc.body.innerHTML;
+        // 2. Inject content inside container
+        document.getElementById('content').innerHTML =
+          `<div class="doc-content">${doc.body.innerHTML}</div>`;
       })
       .catch(err => {
         document.getElementById('content').innerHTML = "Failed to load content.";
