@@ -6,21 +6,24 @@ body {
 }
 
 .modern-button {
+  display: inline-block;
   background: linear-gradient(135deg, #1e90ff, #007bff);
   color: white;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: 500;
-  border-radius: 6px;
-  cursor: pointer;
+  text-decoration: none;
+
+  /* Bigger size */
+  padding: 18px 36px;   /* more space inside */
+  font-size: 20px;      /* bigger text */
+
+  font-weight: 600;
+  border-radius: 10px;  /* slightly larger corners */
+
   transition: all 0.2s ease;
-  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.35);
 }
 
 .modern-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0, 123, 255, 0.4);
+  transform: translateY(-3px);
 }
 
 .modern-button:active {
