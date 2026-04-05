@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Teen Maker Event</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Markdown parser -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>Teen Maker Hardware Event</h1>
+  </header>
+
+  <main>
+    <!-- Markdown content will load here -->
+    <div id="content">Loading...</div>
+  </main>
+
+  <footer>
+    <p>© 2026 Maker Event</p>
+  </footer>
+
+  <script>
+    fetch('content.md')
+      .then(response => response.text())
+      .then(text => {
+        document.getElementById('content').innerHTML = marked.parse(text);
+      })
+      .catch(err => {
+        document.getElementById('content').innerHTML = "Failed to load content.";
+        console.error(err);
+      });
+  </script>
+
+</body>
+</html>
