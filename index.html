@@ -11,22 +11,26 @@
   <style>
   .header-inline {
     display: flex;
+    justify-content: center;
     align-items: center;
   }
-  .header-inline .txt {
-    text-align: center;
+  .header-inline p {
+    position: relative;
+    margin: auto;
   }
   .header-inline img {
     height: 158px;
-    margin-left: 10px;
+    position: fixed;
+    top: 0px;
+    left: 10px;
   }
   </style>
 
   <header>
-    <h1 class="header-inline">
+    <div class="header-inline">
       <img src="images/hack_club_logo_hand.svg" alt="Hack Club Logo">
-      Berkeley Build Guild
-    </h1>
+      <p>Berkeley Build Guild</p>
+    </div>
   </header>
 
   <main>
