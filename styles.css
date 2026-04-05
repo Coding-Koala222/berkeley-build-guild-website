@@ -36,10 +36,10 @@ header {
 }
 
 .sign-up {
-  max-width: 800px;
-  margin: 40px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;">
   padding: 20px;
-  background: white;
   border-radius: 8px;
 }
 
