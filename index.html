@@ -1,155 +1,860 @@
+<!-- @webstudio/inception/1 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Berkeley Build Guild</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" type="image/x-icon" href="images/favicon.png">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Berkeley Build Guild</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Space Grotesk', sans-serif; background: #050508; color: #e8e8f0; overflow-x: hidden; }
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  /* Navbar */
+  .glass-nav {
+    background: rgba(5,5,10,0.72);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,255,180,0.12);
+  }
 
-  <!-- AOS Animation Library -->
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  /* Neon accent */
+  .accent-green { color: #00ffb3; }
+  .accent-blue { color: #3b82f6; }
+  .accent-pink { color: #f72585; }
+
+  /* Glowing text */
+  .glow-green { text-shadow: 0 0 18px rgba(0,255,180,0.7), 0 0 40px rgba(0,255,180,0.3); }
+  .glow-blue  { text-shadow: 0 0 18px rgba(59,130,246,0.7), 0 0 40px rgba(59,130,246,0.3); }
+  .glow-pink  { text-shadow: 0 0 18px rgba(247,37,133,0.7), 0 0 40px rgba(247,37,133,0.3); }
+
+  /* Gradient borders */
+  .grad-border {
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+  }
+  .grad-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #00ffb3, #3b82f6, #f72585);
+    z-index: -1;
+  }
+
+  /* Countdown digits */
+  .countdown-digit {
+    font-family: 'Space Mono', monospace;
+    background: linear-gradient(135deg, #0a0a14, #111128);
+    border: 1px solid rgba(0,255,180,0.2);
+    box-shadow: 0 0 24px rgba(0,255,180,0.08), inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  /* CTA Button */
+  .btn-cta {
+    background: linear-gradient(135deg, #00ffb3, #00c8ff);
+    color: #050508;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    transition: transform 0.18s cubic-bezier(.34,1.56,.64,1), box-shadow 0.18s ease;
+    box-shadow: 0 0 24px rgba(0,255,180,0.35);
+  }
+  .btn-cta:hover {
+    transform: scale(1.06) translateY(-2px);
+    box-shadow: 0 0 48px rgba(0,255,180,0.65), 0 8px 32px rgba(0,200,255,0.3);
+  }
+  .btn-cta:active { transform: scale(0.97); }
+
+  .btn-outline {
+    border: 1.5px solid #00ffb3;
+    color: #00ffb3;
+    background: transparent;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.18s cubic-bezier(.34,1.56,.64,1);
+  }
+  .btn-outline:hover {
+    background: rgba(0,255,180,0.12);
+    transform: scale(1.04) translateY(-1px);
+  }
+
+  /* Card hover lift */
+  .card-lift {
+    transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), box-shadow 0.25s ease;
+    cursor: pointer;
+  }
+  .card-lift:hover {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow: 0 20px 48px rgba(0,255,180,0.12), 0 8px 16px rgba(0,0,0,0.5);
+  }
+
+  /* Nav links */
+  .nav-link {
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 1.5px;
+    background: #00ffb3;
+    transition: width 0.25s ease;
+  }
+  .nav-link:hover { color: #00ffb3; }
+  .nav-link:hover::after { width: 100%; }
+
+  /* AOS-style animations */
+  .aos-fade { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .aos-fade.visible { opacity: 1; transform: translateY(0); }
+  .aos-slide-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .aos-slide-left.visible { opacity: 1; transform: translateX(0); }
+  .aos-slide-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .aos-slide-right.visible { opacity: 1; transform: translateX(0); }
+  .aos-scale { opacity: 0; transform: scale(0.9); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .aos-scale.visible { opacity: 1; transform: scale(1); }
+
+  /* Delay helpers */
+  .delay-100 { transition-delay: 0.1s !important; }
+  .delay-200 { transition-delay: 0.2s !important; }
+  .delay-300 { transition-delay: 0.3s !important; }
+  .delay-400 { transition-delay: 0.4s !important; }
+  .delay-500 { transition-delay: 0.5s !important; }
+
+  /* Section divider */
+  .section-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #00ffb3;
+  }
+
+  /* FAQ accordion */
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+  .faq-answer.open { max-height: 400px; }
+  .faq-item { border-bottom: 1px solid rgba(255,255,255,0.07); }
+
+  /* Hero noise overlay */
+  .noise-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #050508; }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(#00ffb3, #3b82f6); border-radius: 10px; }
+
+  /* Mobile nav */
+  #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  #mobile-menu.open { max-height: 500px; }
+
+  /* Chip badge */
+  .chip {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 2px 10px;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  /* Grid line bg */
+  .grid-lines {
+    background-image: linear-gradient(rgba(0,255,180,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,180,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+</style>
 </head>
+<body class="bg-[#050508] text-[#e8e8f0]">
 
-<!-- Google Analytics (UNCHANGED) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WCLDSF35EG"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-WCLDSF35EG');
-</script>
-
-<body>
-
-<!-- Navbar -->
-<nav class="navbar">
-  <div class="nav-container">
-    <h1>Build Guild</h1>
-    <a href="#signup" class="nav-button">Sign Up</a>
+<!-- ===== STICKY NAVBAR ===== -->
+<nav id="navbar" class="glass-nav fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="#hero" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg,#00ffb3,#3b82f6);">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h2m10 0h-2M9 3v2m0 8v2M5.5 5.5l1.4 1.4m4.2 4.2 1.4 1.4M5.5 12.5l1.4-1.4m4.2-4.2 1.4-1.4" stroke="#050508" stroke-width="1.8" stroke-linecap="round"/><circle cx="9" cy="9" r="2" fill="#050508"/></svg>
+        </div>
+        <span class="font-bold text-sm tracking-tight text-white group-hover:text-[#00ffb3] transition-colors">BTHH<span class="text-[#00ffb3]">'25</span></span>
+      </a>
+      <!-- Desktop nav -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about" class="nav-link text-sm text-[#aaa] font-medium">About</a>
+        <a href="#schedule" class="nav-link text-sm text-[#aaa] font-medium">Schedule</a>
+        <a href="#materials" class="nav-link text-sm text-[#aaa] font-medium">Materials</a>
+        <a href="#faq" class="nav-link text-sm text-[#aaa] font-medium">FAQ</a>
+        <a href="#location" class="nav-link text-sm text-[#aaa] font-medium">Location</a>
+        <a href="#signup" class="btn-cta px-5 py-2 rounded-full text-sm font-bold">Sign Me Up →</a>
+      </div>
+      <!-- Mobile hamburger -->
+      <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2 group" onclick="toggleMobileMenu()">
+        <span class="block w-6 h-0.5 bg-[#00ffb3] transition-all"></span>
+        <span class="block w-6 h-0.5 bg-[#00ffb3] transition-all"></span>
+        <span class="block w-4 h-0.5 bg-[#00ffb3] transition-all"></span>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden border-t border-white/5">
+    <div class="px-4 py-4 flex flex-col gap-4">
+      <a href="#about" onclick="toggleMobileMenu()" class="text-sm text-[#aaa] hover:text-[#00ffb3] transition-colors">About</a>
+      <a href="#schedule" onclick="toggleMobileMenu()" class="text-sm text-[#aaa] hover:text-[#00ffb3] transition-colors">Schedule</a>
+      <a href="#materials" onclick="toggleMobileMenu()" class="text-sm text-[#aaa] hover:text-[#00ffb3] transition-colors">Materials</a>
+      <a href="#faq" onclick="toggleMobileMenu()" class="text-sm text-[#aaa] hover:text-[#00ffb3] transition-colors">FAQ</a>
+      <a href="#location" onclick="toggleMobileMenu()" class="text-sm text-[#aaa] hover:text-[#00ffb3] transition-colors">Location</a>
+      <a href="#signup" onclick="toggleMobileMenu()" class="btn-cta px-5 py-2.5 rounded-full text-sm font-bold text-center">Sign Me Up →</a>
+    </div>
   </div>
 </nav>
 
-<!-- Hero -->
-<section class="hero">
-  <h1 data-aos="fade-up">Teen Hardware Hackathon</h1>
-  <p data-aos="fade-up" data-aos-delay="100">
-    Build cool electronics projects with other makers. No experience required.
-  </p>
+<!-- ===== HERO SECTION ===== -->
+<section id="hero" class="relative min-h-screen flex flex-col justify-center overflow-hidden pt-16 grid-lines">
+  <!-- Circuit bg image -->
+  <div class="absolute inset-0 opacity-20">
+    <img src="https://preview.webstudio.ai/cgi/image/dev/c6fe111ce4527370109fb8d435e9ed18bceb77a1ca638ddaa9786c0d53d2fe0f.png?width=1600&height=640&format=auto" width="1600" height="640" alt="circuit texture" class="w-full h-full object-cover" />
+  </div>
+  <!-- Radial glow -->
+  <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full opacity-10" style="background: radial-gradient(circle, #00ffb3 0%, transparent 70%);"></div>
+  <div class="absolute top-2/3 right-0 w-[400px] h-[400px] rounded-full opacity-8" style="background: radial-gradient(circle, #f72585 0%, transparent 70%);"></div>
 
-  <!-- Countdown -->
-  <div id="countdown" data-aos="fade-up" data-aos-delay="200"></div>
+  <div class="noise-overlay absolute inset-0"></div>
 
-  <a href="https://blueprint.hackclub.com/guilds/invite/berkeley"
-     class="cta-button"
-     data-aos="fade-up"
-     data-aos-delay="300">
-    Sign Me Up
-  </a>
-</section>
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Left copy -->
+      <div>
+        <div class="flex items-center gap-3 mb-6 aos-fade">
+          <span class="chip bg-[#00ffb3]/10 text-[#00ffb3] border border-[#00ffb3]/20">Berkeley · April 18</span>
+          <span class="chip bg-[#f72585]/10 text-[#f72585] border border-[#f72585]/20">Ages 13–18</span>
+          <span class="chip bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20">Free</span>
+        </div>
+        <h1 class="font-bold leading-none mb-4 aos-fade delay-100" style="font-size: clamp(2.8rem, 7vw, 5.5rem); letter-spacing: -0.03em;">
+          Build.<br/>
+          <span class="accent-green glow-green">Hack.</span><br/>
+          Create.
+        </h1>
+        <p class="text-[#aaa] text-lg leading-relaxed max-w-md mb-8 aos-fade delay-200">
+          A hardware hackathon for <span class="text-white font-semibold">teen makers</span> aged 13–18. Get a Raspberry Pi Pico W, a breadboard, and 2 hours to build something awesome — no experience needed.
+        </p>
+        <div class="flex flex-wrap gap-4 aos-fade delay-300">
+          <a href="#signup" class="btn-cta px-8 py-3.5 rounded-full text-base font-bold inline-block">Sign Me Up →</a>
+          <a href="#about" class="btn-outline px-8 py-3.5 rounded-full text-base font-bold inline-block">Learn More</a>
+        </div>
+        <!-- Quick facts row -->
+        <div class="mt-10 flex flex-wrap gap-6 aos-fade delay-400">
+          <div>
+            <div class="section-tag mb-1">When</div>
+            <div class="text-sm font-semibold text-white">Sat, April 18 · 10:45 AM</div>
+          </div>
+          <div class="w-px bg-white/10"></div>
+          <div>
+            <div class="section-tag mb-1">Where</div>
+            <div class="text-sm font-semibold text-white">Berkeley Public Library, West</div>
+          </div>
+          <div class="w-px bg-white/10"></div>
+          <div>
+            <div class="section-tag mb-1">Sponsor</div>
+            <div class="text-sm font-semibold text-white">Hack Club</div>
+          </div>
+        </div>
+      </div>
+      <!-- Right: Hero image + countdown -->
+      <div class="flex flex-col gap-6 aos-slide-right">
+        <div class="relative rounded-2xl overflow-hidden" style="box-shadow: 0 0 60px rgba(0,255,180,0.12);">
+          <img src="https://preview.webstudio.ai/cgi/image/dev/8241fc13c5e1eea47855681aa168cfb113615a7cdff824182d42affc29184607.png?width=1408&height=704&format=auto" width="1408" height="704" alt="Teen hardware hackathon" class="w-full object-cover rounded-2xl" style="max-height: 320px;" />
+          <div class="absolute inset-0 rounded-2xl" style="background: linear-gradient(to top, #050508 0%, transparent 60%);"></div>
+        </div>
 
-<!-- About -->
-<section class="section">
-  <div class="card" data-aos="fade-up">
-    <h2>What?</h2>
-    <p>
-      A gathering of teen makers building cool hardware projects. Work in teams and
-      receive electronics supplies including a programmable microcontroller.
-    </p>
+        <!-- COUNTDOWN TIMER -->
+        <div class="rounded-2xl p-6" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(0,255,180,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.4);">
+          <div class="section-tag text-center mb-4">⏳ Countdown to Launch</div>
+          <div id="countdown" class="grid grid-cols-4 gap-3 text-center">
+            <div class="countdown-digit rounded-xl py-4 px-2">
+              <div id="cd-days" class="text-3xl font-bold accent-green glow-green" style="font-family:'Space Mono',monospace;">--</div>
+              <div class="text-[0.6rem] text-[#666] mt-1 tracking-widest uppercase">Days</div>
+            </div>
+            <div class="countdown-digit rounded-xl py-4 px-2">
+              <div id="cd-hours" class="text-3xl font-bold accent-blue glow-blue" style="font-family:'Space Mono',monospace;">--</div>
+              <div class="text-[0.6rem] text-[#666] mt-1 tracking-widest uppercase">Hours</div>
+            </div>
+            <div class="countdown-digit rounded-xl py-4 px-2">
+              <div id="cd-mins" class="text-3xl font-bold accent-pink glow-pink" style="font-family:'Space Mono',monospace;">--</div>
+              <div class="text-[0.6rem] text-[#666] mt-1 tracking-widest uppercase">Mins</div>
+            </div>
+            <div class="countdown-digit rounded-xl py-4 px-2">
+              <div id="cd-secs" class="text-3xl font-bold text-white" style="font-family:'Space Mono',monospace;">--</div>
+              <div class="text-[0.6rem] text-[#666] mt-1 tracking-widest uppercase">Secs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="card" data-aos="fade-up" data-aos-delay="100">
-    <h2>Who?</h2>
-    <p>Open to all makers aged 13–18. No experience required.</p>
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 aos-fade delay-500">
+    <span class="text-[0.6rem] tracking-widest uppercase text-[#00ffb3]">Scroll</span>
+    <div class="w-px h-10" style="background: linear-gradient(#00ffb3, transparent);"></div>
   </div>
 </section>
 
-<!-- Details -->
-<section class="section grid">
-  <div class="card" data-aos="fade-up">
-    <h2>When?</h2>
-    <p>Saturday, April 18</p>
-    <p><strong>10:45 AM – 1:00 PM</strong></p>
-  </div>
+<!-- ===== ABOUT SECTION ===== -->
+<section id="about" class="py-24 relative overflow-hidden">
+  <div class="absolute right-0 top-0 w-80 h-80 rounded-full opacity-5" style="background: radial-gradient(circle, #3b82f6 0%, transparent 70%);"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-5 gap-16 items-center">
+      <!-- Image -->
+      <div class="lg:col-span-2 aos-slide-left">
+        <div class="relative rounded-2xl overflow-hidden" style="box-shadow: 0 0 40px rgba(59,130,246,0.15);">
+          <img src="https://preview.webstudio.ai/cgi/image/dev/dd2c7d254b61485eda91ded26501e3d9f3d420f9e6f4abd7c15e65dc6d1242a7.png?width=1152&height=768&format=auto" width="1152" height="768" alt="Electronics components" class="w-full object-cover rounded-2xl" />
+          <div class="absolute inset-0 rounded-2xl" style="background: linear-gradient(135deg, rgba(59,130,246,0.08) 0%, transparent 60%);"></div>
+        </div>
+      </div>
+      <!-- Copy -->
+      <div class="lg:col-span-3 aos-slide-right">
+        <div class="section-tag mb-3">// 01 — About</div>
+        <h2 class="text-4xl md:text-5xl font-bold leading-tight mb-6" style="letter-spacing: -0.025em;">
+          What is <span class="accent-blue glow-blue">BTHH?</span>
+        </h2>
+        <p class="text-[#aaa] text-lg leading-relaxed mb-6">
+          The <strong class="text-white">Berkeley Teen Hardware Hackathon</strong> is a gathering of teen makers building cool hardware projects in a fast, friendly, creative sprint. Teams of 2–3 get a set of electronics supplies — including a programmable microcontroller — and 90 minutes to turn an idea into reality.
+        </p>
+        <p class="text-[#aaa] text-lg leading-relaxed mb-8">
+          Whether you're a seasoned coder or have never touched a circuit board, you're welcome here. Come alone, bring a friend, or meet your team on the day. <span class="text-[#00ffb3]">No experience required.</span>
+        </p>
 
-  <div class="card" data-aos="fade-up" data-aos-delay="100">
-    <h2>Where?</h2>
-    <p>Berkeley Public Library</p>
-    <p>West Branch, Community Meeting Room</p>
+        <!-- Stat cards -->
+        <div class="grid grid-cols-3 gap-4 aos-fade delay-200">
+          <div class="card-lift rounded-xl p-4 text-center" style="background: rgba(0,255,180,0.05); border: 1px solid rgba(0,255,180,0.12);">
+            <div class="text-3xl font-bold accent-green glow-green" style="font-family:'Space Mono',monospace;">13–18</div>
+            <div class="text-xs text-[#666] mt-1 tracking-wide">Age Range</div>
+          </div>
+          <div class="card-lift rounded-xl p-4 text-center" style="background: rgba(59,130,246,0.05); border: 1px solid rgba(59,130,246,0.12);">
+            <div class="text-3xl font-bold accent-blue glow-blue" style="font-family:'Space Mono',monospace;">2–3</div>
+            <div class="text-xs text-[#666] mt-1 tracking-wide">Per Team</div>
+          </div>
+          <div class="card-lift rounded-xl p-4 text-center" style="background: rgba(247,37,133,0.05); border: 1px solid rgba(247,37,133,0.12);">
+            <div class="text-3xl font-bold accent-pink glow-pink" style="font-family:'Space Mono',monospace;">90<span class="text-lg">m</span></div>
+            <div class="text-xs text-[#666] mt-1 tracking-wide">Build Time</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Map -->
-<section class="section" data-aos="fade-up">
-  <h2 style="text-align:center;">Location</h2>
-  <div class="map-container">
-    <iframe
-      src="https://maps.google.com/maps?q=Berkeley%20Public%20Library%20West%20Branch&t=&z=15&ie=UTF8&iwloc=&output=embed"
-      loading="lazy">
-    </iframe>
+<!-- ===== SCHEDULE SECTION ===== -->
+<section id="schedule" class="py-24 relative grid-lines">
+  <div class="absolute left-0 top-1/2 w-64 h-64 rounded-full opacity-5" style="background: radial-gradient(circle, #00ffb3 0%, transparent 70%);"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 aos-fade">
+      <div class="section-tag mb-3">// 02 — Timeline</div>
+      <h2 class="text-4xl md:text-5xl font-bold" style="letter-spacing: -0.025em;">
+        The <span class="accent-green glow-green">Schedule</span>
+      </h2>
+      <p class="text-[#666] mt-3 text-sm">Saturday, April 18 · Doors open 10:40 AM</p>
+    </div>
+
+    <div class="relative max-w-3xl mx-auto">
+      <!-- Vertical line -->
+      <div class="absolute left-[28px] top-0 bottom-0 w-px md:left-1/2" style="background: linear-gradient(#00ffb3, #3b82f6, #f72585);"></div>
+
+      <!-- Schedule items -->
+      <div class="space-y-8">
+
+        <!-- Item 1 -->
+        <div class="relative flex items-start gap-6 md:justify-end aos-slide-left">
+          <div class="hidden md:block w-[calc(50%-40px)] text-right pr-8">
+            <div class="text-sm accent-green font-mono font-bold">10:40 AM</div>
+            <div class="text-white font-semibold mt-0.5">Doors Open</div>
+            <div class="text-[#666] text-sm">Everyone arrives and gets settled</div>
+          </div>
+          <div class="relative z-10 flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg,#00ffb3,#3b82f6); box-shadow: 0 0 20px rgba(0,255,180,0.4);">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2v1m0 14v1M2 10h1m14 0h1M4.22 4.22l.7.7m9.9 9.9.7.7M4.22 15.78l.7-.7m9.9-9.9.7-.7" stroke="#050508" stroke-width="1.8" stroke-linecap="round"/><circle cx="10" cy="10" r="3" fill="#050508"/></svg>
+          </div>
+          <div class="md:hidden">
+            <div class="text-sm accent-green font-mono font-bold">10:40 AM</div>
+            <div class="text-white font-semibold mt-0.5">Doors Open</div>
+            <div class="text-[#666] text-sm">Everyone arrives and gets settled</div>
+          </div>
+          <div class="hidden md:block w-[calc(50%-40px)]"></div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="relative flex items-start gap-6 aos-slide-right">
+          <div class="hidden md:block w-[calc(50%-40px)]"></div>
+          <div class="relative z-10 flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg,#3b82f6,#f72585); box-shadow: 0 0 20px rgba(59,130,246,0.4);">
+            <svg width="20" height="20" fill="none" viewBox="0 0 20 20"><rect x="3" y="5" width="14" height="10" rx="2" stroke="#050508" stroke-width="1.8"/><path d="M7 9h6M7 12h4" stroke="#050508" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <div class="md:pl-8 flex-1">
+            <div class="text-sm accent-blue font-mono font-bold">10:45 – 11:00 AM</div>
+            <div class="text-white font-semibold mt-0.5">Welcome & Materials</div>
+            <div class="text-[#666] text-sm">Introductions, rules, and distribution of electronics kits</div>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="relative flex items-start gap-6 md:justify-end aos-slide-left">
+          <div class="hidden md:block w-[calc(50%-40px)] text-right pr-8">
+            <div class="text-sm accent-green font-mono font-bold">11:00 AM – 12:30 PM</div>
+            <div class="text-white font-semibold mt-0.5">Build Time 🔨</div>
+            <div class="text-[#666] text-sm">Project brainstorming and building — the heart of the event!</div>
+          </div>
+          <div class="relative z-10 flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg,#00ffb3,#f72585); box-shadow: 0 0 20px rgba(247,37,133,0.4);">
+            <svg width="20" height="20" fill="none" viewBox="0 0 20 20"><path d="M4 16l4-4 3 3 5-8" stroke="#050508" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="md:hidden flex-1">
+            <div class="text-sm accent-green font-mono font-bold">11:00 AM – 12:30 PM</div>
+            <div class="text-white font-semibold mt-0.5">Build Time 🔨</div>
+            <div class="text-[#666] text-sm">Project brainstorming and building — the heart of the event!</div>
+          </div>
+          <div class="hidden md:block w-[calc(50%-40px)]"></div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="relative flex items-start gap-6 aos-slide-right">
+          <div class="hidden md:block w-[calc(50%-40px)]"></div>
+          <div class="relative z-10 flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg,#3b82f6,#00ffb3); box-shadow: 0 0 20px rgba(59,130,246,0.4);">
+            <svg width="20" height="20" fill="none" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7" stroke="#050508" stroke-width="1.8"/><path d="M10 7v4l2.5 2.5" stroke="#050508" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <div class="md:pl-8 flex-1">
+            <div class="text-sm accent-blue font-mono font-bold">12:30 – 12:50 PM</div>
+            <div class="text-white font-semibold mt-0.5">Optional Demos</div>
+            <div class="text-[#666] text-sm">Show off what you built — no pressure, but highly encouraged!</div>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="relative flex items-start gap-6 md:justify-end aos-slide-left">
+          <div class="hidden md:block w-[calc(50%-40px)] text-right pr-8">
+            <div class="text-sm accent-pink font-mono font-bold">12:50 – 1:00 PM</div>
+            <div class="text-white font-semibold mt-0.5">Clean Up & Goodbye</div>
+            <div class="text-[#666] text-sm">Pack up, keep your materials, and celebrate what you made</div>
+          </div>
+          <div class="relative z-10 flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg,#f72585,#3b82f6); box-shadow: 0 0 20px rgba(247,37,133,0.4);">
+            <svg width="20" height="20" fill="none" viewBox="0 0 20 20"><path d="M7 10l2 2 4-4" stroke="#050508" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="10" r="7" stroke="#050508" stroke-width="1.8"/></svg>
+          </div>
+          <div class="md:hidden flex-1">
+            <div class="text-sm accent-pink font-mono font-bold">12:50 – 1:00 PM</div>
+            <div class="text-white font-semibold mt-0.5">Clean Up & Goodbye</div>
+            <div class="text-[#666] text-sm">Pack up, keep your materials, and celebrate what you made</div>
+          </div>
+          <div class="hidden md:block w-[calc(50%-40px)]"></div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Sponsor -->
-<section class="section">
-  <div class="card" data-aos="fade-up">
-    <h2>Sponsor</h2>
-    <p>
-      Sponsored by Hack Club, a nonprofit empowering high school students to build
-      real projects through coding and community.
-    </p>
+<!-- ===== MATERIALS SECTION ===== -->
+<section id="materials" class="py-24 relative overflow-hidden">
+  <div class="absolute right-1/4 bottom-0 w-96 h-96 rounded-full opacity-5" style="background: radial-gradient(circle, #f72585 0%, transparent 70%);"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 aos-fade">
+      <div class="section-tag mb-3">// 03 — Kit</div>
+      <h2 class="text-4xl md:text-5xl font-bold" style="letter-spacing: -0.025em;">
+        Your <span class="accent-pink glow-pink">Free Kit</span>
+      </h2>
+      <p class="text-[#666] mt-3 max-w-lg mx-auto">Each team receives these components — yours to keep after the event.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Kit item 1 -->
+      <div class="card-lift rounded-2xl p-6 aos-scale delay-100" style="background: rgba(0,255,180,0.04); border: 1px solid rgba(0,255,180,0.15);">
+        <div class="w-12 h-12 rounded-xl mb-4 flex items-center justify-center text-2xl" style="background: rgba(0,255,180,0.1);">🎛️</div>
+        <h3 class="font-bold text-white mb-2">Raspberry Pi Pico W</h3>
+        <p class="text-[#888] text-sm leading-relaxed">Programmable microcontroller with Wi-Fi, headers pre-soldered. Supports MicroPython &amp; C++.</p>
+        <div class="mt-4 chip bg-[#00ffb3]/10 text-[#00ffb3] border border-[#00ffb3]/20 inline-block">1× per team</div>
+      </div>
+
+      <!-- Kit item 2 -->
+      <div class="card-lift rounded-2xl p-6 aos-scale delay-200" style="background: rgba(59,130,246,0.04); border: 1px solid rgba(59,130,246,0.15);">
+        <div class="w-12 h-12 rounded-xl mb-4 flex items-center justify-center text-2xl" style="background: rgba(59,130,246,0.1);">🔌</div>
+        <h3 class="font-bold text-white mb-2">400-Pin Breadboard</h3>
+        <p class="text-[#888] text-sm leading-relaxed">Full-size solderless prototyping board. Connect components without soldering — perfect for quick iteration.</p>
+        <div class="mt-4 chip bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20 inline-block">1× per team</div>
+      </div>
+
+      <!-- Kit item 3 -->
+      <div class="card-lift rounded-2xl p-6 aos-scale delay-300" style="background: rgba(247,37,133,0.04); border: 1px solid rgba(247,37,133,0.15);">
+        <div class="w-12 h-12 rounded-xl mb-4 flex items-center justify-center text-2xl" style="background: rgba(247,37,133,0.1);">🔊</div>
+        <h3 class="font-bold text-white mb-2">Mini Speaker</h3>
+        <p class="text-[#888] text-sm leading-relaxed">Compact speaker module for generating sound, music, or alerts from your project.</p>
+        <div class="mt-4 chip bg-[#f72585]/10 text-[#f72585] border border-[#f72585]/20 inline-block">1× per team</div>
+      </div>
+
+      <!-- Kit item 4 -->
+      <div class="card-lift rounded-2xl p-6 aos-scale delay-400" style="background: rgba(255,200,0,0.04); border: 1px solid rgba(255,200,0,0.15);">
+        <div class="w-12 h-12 rounded-xl mb-4 flex items-center justify-center text-2xl" style="background: rgba(255,200,0,0.1);">📺</div>
+        <h3 class="font-bold text-white mb-2">Mini OLED Screen</h3>
+        <p class="text-[#888] text-sm leading-relaxed">Tiny display for showing text, graphics, or real-time data from your project's sensors.</p>
+        <div class="mt-4 chip bg-yellow-400/10 text-yellow-400 border border-yellow-400/20 inline-block">1× per team</div>
+      </div>
+
+    </div>
+
+    <!-- Bring your own -->
+    <div class="mt-12 rounded-2xl p-8 aos-fade" style="background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.08);">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="font-bold text-white mb-4 flex items-center gap-2">
+            <span class="accent-green">✓</span> Required — At least one per team
+          </h3>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-[#aaa] text-sm"><span class="accent-green">→</span> Laptop</li>
+            <li class="flex items-center gap-2 text-[#aaa] text-sm"><span class="accent-green">→</span> Laptop charger</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold text-white mb-4 flex items-center gap-2">
+            <span class="accent-blue">+</span> Recommended extras
+          </h3>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-[#aaa] text-sm"><span class="accent-blue">→</span> USB-A to Micro-USB cable</li>
+            <li class="flex items-center gap-2 text-[#aaa] text-sm"><span class="accent-blue">→</span> Additional electronics components</li>
+            <li class="flex items-center gap-2 text-[#aaa] text-sm"><span class="accent-blue">→</span> Snacks (no food provided!)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section id="signup" class="section center">
-  <h2 data-aos="fade-up">Ready to Build?</h2>
-  <a href="https://blueprint.hackclub.com/guilds/invite/berkeley"
-     class="cta-button"
-     data-aos="fade-up"
-     data-aos-delay="100">
-    Join the Hackathon
-  </a>
+<!-- ===== SPONSOR SECTION ===== -->
+<section class="py-16 relative overflow-hidden" style="background: linear-gradient(135deg, rgba(0,255,180,0.04) 0%, rgba(59,130,246,0.04) 100%); border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="aos-slide-left">
+        <div class="section-tag mb-3">// Proudly Sponsored By</div>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4" style="letter-spacing:-0.02em;">
+          <span class="accent-green">Hack Club</span> — Empowering Teen Makers
+        </h2>
+        <p class="text-[#aaa] leading-relaxed mb-6">
+          This event is sponsored by <strong class="text-white">Hack Club</strong>, a nonprofit organization focused on empowering high school students to learn computer programming and build projects through community-driven programming challenges and sponsorship of in-person events around the world.
+        </p>
+        <a href="https://hackclub.com" target="_blank" rel="noopener" class="btn-outline px-6 py-2.5 rounded-full text-sm font-bold inline-block">Visit Hack Club →</a>
+      </div>
+      <div class="aos-slide-right">
+        <div class="rounded-2xl overflow-hidden" style="box-shadow: 0 0 40px rgba(0,255,180,0.1);">
+          <img src="https://preview.webstudio.ai/cgi/image/dev/e96953345230cf5595eb11882064e22e3088d29b2f309f1557aaaa6c13644765.png?width=1024&height=640&format=auto" width="1024" height="640" alt="Hack Club community" class="w-full object-cover rounded-2xl" style="max-height: 260px;" />
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Footer (UNCHANGED) -->
-<footer>
-  <p style="text-align: center;">© 2026 Berkeley Build Guild
-    <br> Open source on <a href="https://github.com/Coding-Koala222/berkeley-build-guild-website" target="_blank">GitHub</a>
-    <br> A program of <a href="https://hackclub.com/" target="_blank">Hack Club</a>
-  </p>
+<!-- ===== FAQ SECTION ===== -->
+<section id="faq" class="py-24 relative">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 aos-fade">
+      <div class="section-tag mb-3">// 04 — Questions</div>
+      <h2 class="text-4xl md:text-5xl font-bold" style="letter-spacing:-0.025em;">
+        Got <span class="accent-blue glow-blue">Questions?</span>
+      </h2>
+    </div>
+
+    <div class="space-y-0 aos-fade">
+
+      <div class="faq-item">
+        <button onclick="toggleFaq(this)" class="w-full text-left py-5 flex items-center justify-between gap-4 hover:text-[#00ffb3] transition-colors group">
+          <span class="font-semibold text-white group-hover:text-[#00ffb3] transition-colors">Do I need prior experience?</span>
+          <span class="faq-icon text-[#00ffb3] text-xl font-light flex-shrink-0">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="text-[#aaa] pb-5 text-sm leading-relaxed">No prior experience is required! This event is beginner-friendly, and you'll learn as you go. There will be guidance available, and teaming up helps a lot.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button onclick="toggleFaq(this)" class="w-full text-left py-5 flex items-center justify-between gap-4 hover:text-[#00ffb3] transition-colors group">
+          <span class="font-semibold text-white group-hover:text-[#00ffb3] transition-colors">Can I come alone without a team?</span>
+          <span class="faq-icon text-[#00ffb3] text-xl font-light flex-shrink-0">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="text-[#aaa] pb-5 text-sm leading-relaxed">Yes! You don't need to come with a team. We'll help match you with teammates at the event. You may also come with a friend or find teammates on the day.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button onclick="toggleFaq(this)" class="w-full text-left py-5 flex items-center justify-between gap-4 hover:text-[#00ffb3] transition-colors group">
+          <span class="font-semibold text-white group-hover:text-[#00ffb3] transition-colors">Do I need to install anything beforehand?</span>
+          <span class="faq-icon text-[#00ffb3] text-xl font-light flex-shrink-0">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="text-[#aaa] pb-5 text-sm leading-relaxed space-y-2">
+            <p>It's recommended to have a modern web browser. Depending on your language:</p>
+            <p><strong class="text-white">MicroPython (Recommended for beginners):</strong> Download Thonny IDE and install MicroPython on Raspberry Pi Pico.</p>
+            <p><strong class="text-white">C++ / VS Code:</strong> Download VS Code and get started with Raspberry Pi Pico-series.</p>
+            <p><strong class="text-white">C++ / Arduino IDE:</strong> Download Arduino IDE and install Pi Pico in Arduino IDE.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button onclick="toggleFaq(this)" class="w-full text-left py-5 flex items-center justify-between gap-4 hover:text-[#00ffb3] transition-colors group">
+          <span class="font-semibold text-white group-hover:text-[#00ffb3] transition-colors">Can I keep the materials after the event?</span>
+          <span class="faq-icon text-[#00ffb3] text-xl font-light flex-shrink-0">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="text-[#aaa] pb-5 text-sm leading-relaxed">Yes! Teams are welcome to keep the materials provided and split them up as they wish after the event. Just make sure everyone on the team is satisfied with the arrangement.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button onclick="toggleFaq(this)" class="w-full text-left py-5 flex items-center justify-between gap-4 hover:text-[#00ffb3] transition-colors group">
+          <span class="font-semibold text-white group-hover:text-[#00ffb3] transition-colors">Will there be adult supervision?</span>
+          <span class="faq-icon text-[#00ffb3] text-xl font-light flex-shrink-0">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="text-[#aaa] pb-5 text-sm leading-relaxed">Yes. There will be an adult present in the room and parents are welcome to sit in the main part of the library located just outside the room.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button onclick="toggleFaq(this)" class="w-full text-left py-5 flex items-center justify-between gap-4 hover:text-[#00ffb3] transition-colors group">
+          <span class="font-semibold text-white group-hover:text-[#00ffb3] transition-colors">What if I arrive late?</span>
+          <span class="faq-icon text-[#00ffb3] text-xl font-light flex-shrink-0">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="text-[#aaa] pb-5 text-sm leading-relaxed">You can still join, but arriving on time is strongly recommended so you don't miss team formation and the introduction.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button onclick="toggleFaq(this)" class="w-full text-left py-5 flex items-center justify-between gap-4 hover:text-[#00ffb3] transition-colors group">
+          <span class="font-semibold text-white group-hover:text-[#00ffb3] transition-colors">Is there a code of conduct?</span>
+          <span class="faq-icon text-[#00ffb3] text-xl font-light flex-shrink-0">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="text-[#aaa] pb-5 text-sm leading-relaxed">Yes. Everyone is expected to be respectful, inclusive, and supportive. This event follows the Hack Club Code of Conduct and Hack Club Safeguarding Policy to ensure a safe and welcoming environment for all participants.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button onclick="toggleFaq(this)" class="w-full text-left py-5 flex items-center justify-between gap-4 hover:text-[#00ffb3] transition-colors group">
+          <span class="font-semibold text-white group-hover:text-[#00ffb3] transition-colors">Do I have to present my project?</span>
+          <span class="faq-icon text-[#00ffb3] text-xl font-light flex-shrink-0">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="text-[#aaa] pb-5 text-sm leading-relaxed">No — presenting is optional. You're welcome to share what you built, but there's no requirement. Demos run from 12:30–12:50 PM for those who want to participate.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button onclick="toggleFaq(this)" class="w-full text-left py-5 flex items-center justify-between gap-4 hover:text-[#00ffb3] transition-colors group">
+          <span class="font-semibold text-white group-hover:text-[#00ffb3] transition-colors">Will there be food?</span>
+          <span class="faq-icon text-[#00ffb3] text-xl font-light flex-shrink-0">+</span>
+        </button>
+        <div class="faq-answer">
+          <p class="text-[#aaa] pb-5 text-sm leading-relaxed">Food is not guaranteed, so it's a good idea to bring your own snacks!</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== LOCATION SECTION ===== -->
+<section id="location" class="py-24 relative grid-lines">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 aos-fade">
+      <div class="section-tag mb-3">// 05 — Venue</div>
+      <h2 class="text-4xl md:text-5xl font-bold" style="letter-spacing:-0.025em;">
+        Find <span class="accent-pink glow-pink">Us</span>
+      </h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-10 items-start">
+
+      <!-- Address card -->
+      <div class="space-y-6 aos-slide-left">
+        <div class="rounded-2xl p-8" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg,#f72585,#3b82f6);">
+              <svg width="20" height="20" fill="none" viewBox="0 0 20 20"><path d="M10 2C7.24 2 5 4.24 5 7c0 4.25 5 11 5 11s5-6.75 5-11c0-2.76-2.24-5-5-5z" stroke="white" stroke-width="1.5"/><circle cx="10" cy="7" r="2" stroke="white" stroke-width="1.5"/></svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-white text-lg">Berkeley Public Library</h3>
+              <p class="text-[#aaa] text-sm mt-1">West Branch · Community Meeting Room</p>
+            </div>
+          </div>
+          <div class="space-y-3 text-sm">
+            <div class="flex items-center gap-3 text-[#aaa]">
+              <span class="accent-green">📍</span>
+              <span>1125 University Ave (at San Pablo), Berkeley, CA 94702</span>
+            </div>
+            <div class="flex items-center gap-3 text-[#aaa]">
+              <span class="accent-blue">📅</span>
+              <span>Saturday, April 18, 2025</span>
+            </div>
+            <div class="flex items-center gap-3 text-[#aaa]">
+              <span class="accent-pink">⏰</span>
+              <span>10:45 AM – 1:00 PM (Doors open 10:40 AM)</span>
+            </div>
+          </div>
+          <a href="https://maps.google.com/?q=1125+University+Ave,+Berkeley,+CA+94702" target="_blank" rel="noopener" class="mt-6 btn-outline px-5 py-2 rounded-full text-sm font-bold inline-block">Open in Maps →</a>
+        </div>
+      </div>
+
+      <!-- Map embed -->
+      <div class="rounded-2xl overflow-hidden aos-slide-right" style="height: 360px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 0 40px rgba(0,0,0,0.5);">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3148.2!2d-122.2862!3d37.8702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80857e8e0b3ad3ef%3A0x8d14f94e9b0a9d8c!2s1125+University+Ave%2C+Berkeley%2C+CA+94702!5e0!3m2!1sen!2sus!4v1680000000000!5m2!1sen!2sus"
+          width="100%"
+          height="100%"
+          style="border:0; filter: grayscale(100%) invert(90%) hue-rotate(160deg) brightness(0.8) contrast(1.1);"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Berkeley Public Library West Branch">
+        </iframe>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA / SIGNUP SECTION ===== -->
+<section id="signup" class="py-32 relative overflow-hidden">
+  <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(0,255,180,0.06) 0%, rgba(59,130,246,0.06) 50%, rgba(247,37,133,0.06) 100%);"></div>
+  <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, #00ffb3, #3b82f6, #f72585, transparent);"></div>
+  <div class="absolute bottom-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, #f72585, #3b82f6, #00ffb3, transparent);"></div>
+
+  <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="aos-fade">
+      <div class="section-tag mb-4">// Ready to Build?</div>
+      <h2 class="text-5xl md:text-6xl font-bold mb-6 leading-none" style="letter-spacing:-0.03em;">
+        Let's Make<br/><span class="accent-green glow-green">Something</span><br/>Awesome.
+      </h2>
+      <p class="text-[#aaa] text-lg mb-10 max-w-xl mx-auto">
+        Join us on April 18 at the Berkeley Public Library. All skill levels welcome. Free to attend. Materials provided.
+      </p>
+      <a href="https://forms.hackclub.com" target="_blank" rel="noopener" class="btn-cta px-12 py-4 rounded-full text-lg font-bold inline-block">
+        Sign Me Up — It's Free →
+      </a>
+      <p class="mt-6 text-[#555] text-xs tracking-wide">Saturday · April 18 · 10:45 AM · Berkeley, CA</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="border-t py-12" style="border-color: rgba(255,255,255,0.06); background: rgba(0,0,0,0.4);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg,#00ffb3,#3b82f6);">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h2m10 0h-2M9 3v2m0 8v2M5.5 5.5l1.4 1.4m4.2 4.2 1.4 1.4M5.5 12.5l1.4-1.4m4.2-4.2 1.4-1.4" stroke="#050508" stroke-width="1.8" stroke-linecap="round"/><circle cx="9" cy="9" r="2" fill="#050508"/></svg>
+        </div>
+        <div>
+          <div class="font-bold text-sm text-white">Berkeley Teen Hardware Hackathon</div>
+          <div class="text-xs text-[#555]">Powered by Hack Club · April 18, 2025</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-6 text-xs text-[#555]">
+        <a href="#about" class="hover:text-[#00ffb3] transition-colors">About</a>
+        <a href="#schedule" class="hover:text-[#00ffb3] transition-colors">Schedule</a>
+        <a href="#faq" class="hover:text-[#00ffb3] transition-colors">FAQ</a>
+        <a href="#location" class="hover:text-[#00ffb3] transition-colors">Location</a>
+      </div>
+      <div class="text-xs text-[#444]">
+        Hack Club <a href="https://hackclub.com/conduct" target="_blank" class="hover:text-[#00ffb3] transition-colors underline">Code of Conduct</a> applies
+      </div>
+    </div>
+  </div>
 </footer>
 
-<!-- Scripts -->
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<!-- ===== JAVASCRIPT ===== -->
 <script>
-  AOS.init({
-    duration: 700,
-    once: true
-  });
+// Countdown Timer
+function updateCountdown() {
+  const eventDate = new Date('2025-04-18T10:45:00-07:00'); // PDT
+  const now = new Date();
+  const diff = eventDate - now;
 
-  // Countdown Timer
-  const eventDate = new Date("April 18, 2026 10:45:00").getTime();
+  if (diff <= 0) {
+    document.getElementById('cd-days').textContent = '00';
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-mins').textContent = '00';
+    document.getElementById('cd-secs').textContent = '00';
+    return;
+  }
 
-  const countdown = document.getElementById("countdown");
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
-  setInterval(() => {
-    const now = new Date().getTime();
-    const diff = eventDate - now;
+  document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+  document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+  document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+  document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
 
-    if (diff <= 0) {
-      countdown.innerHTML = "Event Started!";
-      return;
+// AOS (Animate on Scroll)
+function checkAOS() {
+  const elements = document.querySelectorAll('.aos-fade, .aos-slide-left, .aos-slide-right, .aos-scale');
+  elements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 60) {
+      el.classList.add('visible');
     }
+  });
+}
+window.addEventListener('scroll', checkAOS, { passive: true });
+window.addEventListener('load', checkAOS);
+setTimeout(checkAOS, 100);
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+// FAQ Accordion
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const icon = btn.querySelector('.faq-icon');
+  const isOpen = answer.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-icon').forEach(i => i.textContent = '+');
+  if (!isOpen) {
+    answer.classList.add('open');
+    icon.textContent = '−';
+  }
+}
 
-    countdown.innerHTML = `${days}d ${hours}h ${minutes}m`;
-  }, 1000);
+// Mobile menu
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  menu.classList.toggle('open');
+}
+
+// Navbar scroll effect
+window.addEventListener('scroll', function() {
+  const navbar = document.getElementById('navbar');
+  if (window.scrollY > 50) {
+    navbar.style.background = 'rgba(5,5,10,0.92)';
+  } else {
+    navbar.style.background = 'rgba(5,5,10,0.72)';
+  }
+}, { passive: true });
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
 </script>
 
 </body>
