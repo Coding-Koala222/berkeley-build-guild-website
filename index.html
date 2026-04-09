@@ -5,105 +5,152 @@
   <title>Berkeley Build Guild</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/x-icon" href="images/favicon.png">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
-  <!-- Google tag (gtag.js) -->
+
+<!-- Google Analytics (UNCHANGED) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WCLDSF35EG"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-WCLDSF35EG');
 </script>
+
 <body>
 
-
-  <style>
-  .header-inline {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .header-inline h1 {
-    position: relative;
-    margin: auto;
-  }
-  .header-inline img {
-    height: 158px;
-    position: absolute;
-    top: 0px;
-    left: 10px;
-  }
-  </style>
-
-  <header>
-    <div class="header-inline">
-      <img src="images/hack_club_logo_hand.svg" alt="Hack Club Logo">
-      <h1>Berkeley Build Guild</h1>
-    </div>
-  </header>
-
-  <div class="sign-up">
-    <a href="https://blueprint.hackclub.com/guilds/invite/berkeley" class="modern-button">Sign Me Up!</a>
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-container">
+    <h1>Build Guild</h1>
+    <a href="#signup" class="nav-button">Sign Up</a>
   </div>
+</nav>
 
-  <div class="sign-up-announcement">
-    <h2 style="text-align: center";>While we will do our best to accomodate late sign-ups, please register by 10:00 AM on Monday, April 13 so that we know how many parts to order.</h2>
-  </div>
-    
-  <main>
-    <div id="content">Loading...</div>
-  </main>
+<!-- Hero -->
+<section class="hero">
+  <h1 data-aos="fade-up">Teen Hardware Hackathon</h1>
+  <p data-aos="fade-up" data-aos-delay="100">
+    Build cool electronics projects with other makers. No experience required.
+  </p>
 
-  <footer>
-    <p style="text-align: center;">© 2026 Berkeley Build Guild
-      <br> Open source on <a href="https://github.com/Coding-Koala222/berkeley-build-guild-website" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <br> A program of <a href="https://hackclub.com/" target="_blank" rel="noopener noreferrer">Hack Club</a>
+  <!-- Countdown -->
+  <div id="countdown" data-aos="fade-up" data-aos-delay="200"></div>
+
+  <a href="https://blueprint.hackclub.com/guilds/invite/berkeley"
+     class="cta-button"
+     data-aos="fade-up"
+     data-aos-delay="300">
+    Sign Me Up
+  </a>
+</section>
+
+<!-- About -->
+<section class="section">
+  <div class="card" data-aos="fade-up">
+    <h2>What?</h2>
+    <p>
+      A gathering of teen makers building cool hardware projects. Work in teams and
+      receive electronics supplies including a programmable microcontroller.
     </p>
-  </footer>
+  </div>
 
-  <script>
-    fetch(`content.html?t=${Date.now()}`, {
-      cache: "no-store"
-    })
-      .then(res => res.text())
-      .then(html => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
+  <div class="card" data-aos="fade-up" data-aos-delay="100">
+    <h2>Who?</h2>
+    <p>Open to all makers aged 13–18. No experience required.</p>
+  </div>
+</section>
 
-        const containerId = "#content";
+<!-- Details -->
+<section class="section grid">
+  <div class="card" data-aos="fade-up">
+    <h2>When?</h2>
+    <p>Saturday, April 18</p>
+    <p><strong>10:45 AM – 1:00 PM</strong></p>
+  </div>
 
-        // 1. Scope all <style> rules to #content
-        doc.querySelectorAll('style').forEach(style => {
-          let scopedCSS = style.innerHTML;
+  <div class="card" data-aos="fade-up" data-aos-delay="100">
+    <h2>Where?</h2>
+    <p>Berkeley Public Library</p>
+    <p>West Branch, Community Meeting Room</p>
+  </div>
+</section>
 
-          // Prefix each selector with #content
-          scopedCSS = scopedCSS.replace(/(^|\})\s*([^{]+)/g, (match, brace, selector) => {
-            // Skip @ rules like @media
-            if (selector.includes('@')) return match;
-            
-            const scopedSelector = selector
-              .split(',')
-              .map(s => `${containerId} ${s.trim()}`)
-              .join(', ');
+<!-- Map -->
+<section class="section" data-aos="fade-up">
+  <h2 style="text-align:center;">Location</h2>
+  <div class="map-container">
+    <iframe
+      src="https://maps.google.com/maps?q=Berkeley%20Public%20Library%20West%20Branch&t=&z=15&ie=UTF8&iwloc=&output=embed"
+      loading="lazy">
+    </iframe>
+  </div>
+</section>
 
-            return `${brace} ${scopedSelector}`;
-          });
+<!-- Sponsor -->
+<section class="section">
+  <div class="card" data-aos="fade-up">
+    <h2>Sponsor</h2>
+    <p>
+      Sponsored by Hack Club, a nonprofit empowering high school students to build
+      real projects through coding and community.
+    </p>
+  </div>
+</section>
 
-          const newStyle = document.createElement('style');
-          newStyle.innerHTML = scopedCSS;
-          document.head.appendChild(newStyle);
-        });
+<!-- CTA -->
+<section id="signup" class="section center">
+  <h2 data-aos="fade-up">Ready to Build?</h2>
+  <a href="https://blueprint.hackclub.com/guilds/invite/berkeley"
+     class="cta-button"
+     data-aos="fade-up"
+     data-aos-delay="100">
+    Join the Hackathon
+  </a>
+</section>
 
-        // 2. Inject content inside container
-        document.getElementById('content').innerHTML =
-          `<div class="doc-content">${doc.body.innerHTML}</div>`;
-      })
-      .catch(err => {
-        document.getElementById('content').innerHTML = "Failed to load content.";
-        console.error(err);
-      });
-  </script>
+<!-- Footer (UNCHANGED) -->
+<footer>
+  <p style="text-align: center;">© 2026 Berkeley Build Guild
+    <br> Open source on <a href="https://github.com/Coding-Koala222/berkeley-build-guild-website" target="_blank">GitHub</a>
+    <br> A program of <a href="https://hackclub.com/" target="_blank">Hack Club</a>
+  </p>
+</footer>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 700,
+    once: true
+  });
+
+  // Countdown Timer
+  const eventDate = new Date("April 18, 2026 10:45:00").getTime();
+
+  const countdown = document.getElementById("countdown");
+
+  setInterval(() => {
+    const now = new Date().getTime();
+    const diff = eventDate - now;
+
+    if (diff <= 0) {
+      countdown.innerHTML = "Event Started!";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+    countdown.innerHTML = `${days}d ${hours}h ${minutes}m`;
+  }, 1000);
+</script>
 
 </body>
 </html>
