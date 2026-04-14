@@ -149,8 +149,9 @@
   .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
   .faq-answer.open { max-height: 400px; }
   .faq-item { border-bottom: 1px solid rgba(255,255,255,0.07); }
-  .faq a {
-    color: -webkit-link;
+  #faq a {
+    color: DodgerBlue;           /* Fallback for all browsers */
+    color: -webkit-link;   /* Use WebKit system link color if supported */
     cursor: pointer;
     text-decoration: underline;
   }
@@ -668,7 +669,7 @@
           <span class="faq-icon text-[#00ffb3] text-xl font-light flex-shrink-0">+</span>
         </button>
         <div class="faq-answer">
-          <p class="text-[#aaa] pb-5 text-sm leading-relaxed">Yes. Everyone is expected to be respectful, inclusive, and supportive. This event follows the <a style="color: #0000EE" href="https://hackclub.com/conduct">Hack Club Code of Conduct</a> and <a style="color: #0000EE" href="https://hackclub.com/safeguarding-policy/">Hack Club Safeguarding Policy</a> to ensure a safe and welcoming environment for all participants.</p>
+          <p class="text-[#aaa] pb-5 text-sm leading-relaxed">Yes. Everyone is expected to be respectful, inclusive, and supportive. This event follows the <a href="https://hackclub.com/conduct">Hack Club Code of Conduct</a> and <a href="https://hackclub.com/safeguarding-policy/">Hack Club Safeguarding Policy</a> to ensure a safe and welcoming environment for all participants.</p>
         </div>
       </div>
 
