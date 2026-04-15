@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  Build_CSS:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,7 +20,10 @@ jobs:
       
       - name: Build Tailwind CSS
         run: npx tailwindcss -i ./src/input.css -o ./dist/output.css
-      
+
+      - name: Optimize CSS with Classpresso
+        run: npx classpresso optimize --dir dist
+         
       - name: Commit and push
         run: |
           git config user.email "action@github.com"
