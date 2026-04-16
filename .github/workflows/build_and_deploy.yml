@@ -27,9 +27,9 @@ jobs:
         uses: MadaraUchiha/copy-action@0.0.1
         with:
           # Source file
-          source: /pages/
+          source: /pages
           # Target file
-          target: /dist/
+          target: /dist
 
       - name: Commit and push
         run: |
