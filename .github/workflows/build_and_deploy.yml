@@ -38,6 +38,11 @@ jobs:
           git commit -m "Copy html files to dist folder" || echo "No changes to commit"
           git push || echo "Nothing to push"
 
+      - name: Ensure writable dist
+        run: |
+          mkdir -p dist
+          chmod -R u+w dist
+
       # Optimize classes in built HTML and CSS
       - name: Optimize HTML with Classpresso
         run: npx classpresso optimize --dir dist
