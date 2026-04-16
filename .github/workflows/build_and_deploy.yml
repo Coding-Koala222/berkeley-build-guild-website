@@ -39,9 +39,7 @@ jobs:
           git push || echo "Nothing to push"
 
       - name: Ensure writable dist
-        run: |
-          mkdir -p dist
-          chmod -R u+w dist
+        run: sudo chown -R $USER:$USER dist
 
       # Optimize classes in built HTML and CSS
       - name: Optimize HTML with Classpresso
