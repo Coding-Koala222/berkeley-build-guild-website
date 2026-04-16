@@ -1,8 +1,14 @@
 name: Build, Optimize with Classpresso, and Deploy
 
 on:
-  push:
-    branches: [main]
+  workflow_run:
+    workflows: [Build Tailwind CSS]
+    types:
+      - completed
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build-deploy:
@@ -16,9 +22,24 @@ jobs:
 
       - run: npm install
 
-      # Build your static site (may differ for your framework!)
+      # Build your static site
       - name: Build site
-        run: npm run build          # Make sure this outputs to dist/ or similar
+        uses: nearform-actions/github-action-copy-files@v1
+        with:
+          source: '/pages/**'
+          destination: './dist/'
+          options: |
+            {
+              "overwrite": true
+            }
+
+      - name: Commit and push
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git add -A
+          git commit -m "Copy html files to dist folder" || echo "No changes to commit"
+          git push || echo "Nothing to push"
 
       # Optimize classes in built HTML and CSS
       - name: Optimize HTML with Classpresso
