@@ -26,10 +26,9 @@ jobs:
       - name: Build site
         uses: MadaraUchiha/copy-action@0.0.1
         with:
-          # Source file
-          source: "pages"
-          # Target file
-          target: "dist"
+          source: pages/.
+          target: dist/
+          flags: '-r'
 
       - name: Commit and push
         run: |
