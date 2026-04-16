@@ -1,0 +1,490 @@
+{
+  "version": "1.0.0",
+  "tool": "classpresso",
+  "buildDir": "dist",
+  "created": "2026-04-16T01:45:48.944Z",
+  "config": {
+    "minOccurrences": 2,
+    "minClasses": 2,
+    "hashPrefix": "cp-",
+    "hashLength": 5
+  },
+  "mappings": [
+    {
+      "original": "w-full text-left py-5 flex items-center justify-between gap-4 hover:text-[#00ffb3] transition-colors group",
+      "consolidated": "cp-a",
+      "classes": [
+        "w-full",
+        "text-left",
+        "py-5",
+        "flex",
+        "items-center",
+        "justify-between",
+        "gap-4",
+        "hover:text-[#00ffb3]",
+        "transition-colors",
+        "group"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "width: 100%; text-align: left; padding-top: 1.25rem; padding-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; --tw-text-opacity: 1; color: rgb(0 255 179 / var(--tw-text-opacity, 1))",
+      "frequency": 9,
+      "bytesSaved": 918
+    },
+    {
+      "original": "font-semibold text-white group-hover:text-[#00ffb3] transition-colors",
+      "consolidated": "cp-b",
+      "classes": [
+        "font-semibold",
+        "text-white",
+        "group-hover:text-[#00ffb3]",
+        "transition-colors"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "font-weight: 600; --tw-text-opacity: 1; color: rgb(255 255 255 / var(--tw-text-opacity, 1)); transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms",
+      "frequency": 9,
+      "bytesSaved": 585
+    },
+    {
+      "original": "faq-icon text-[#00ffb3] text-xl font-light flex-shrink-0",
+      "consolidated": "cp-c",
+      "classes": [
+        "faq-icon",
+        "text-[#00ffb3]",
+        "text-xl",
+        "font-light",
+        "flex-shrink-0"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "color: #00ffb3; font-size: 1.25rem; line-height: 1.75rem; font-weight: 300; flex-shrink: 0",
+      "frequency": 9,
+      "bytesSaved": 468
+    },
+    {
+      "original": "relative z-10 flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center",
+      "consolidated": "cp-k",
+      "classes": [
+        "relative",
+        "z-10",
+        "flex-shrink-0",
+        "w-14",
+        "h-14",
+        "rounded-full",
+        "flex",
+        "items-center",
+        "justify-center"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "position: relative; z-index: 10; flex-shrink: 0; width: 3.5rem; height: 3.5rem; border-radius: 9999px; display: flex; align-items: center; justify-content: center",
+      "frequency": 5,
+      "bytesSaved": 395
+    },
+    {
+      "original": "text-[#aaa] pb-5 text-sm leading-relaxed",
+      "consolidated": "cp-f",
+      "classes": [
+        "text-[#aaa]",
+        "pb-5",
+        "text-sm",
+        "leading-relaxed"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "color: #aaa; padding-bottom: 1.25rem; font-size: 0.875rem; line-height: 1.25rem; line-height: 1.625",
+      "frequency": 8,
+      "bytesSaved": 288
+    },
+    {
+      "original": "text-sm text-[#aaa] hover:text-[#00ffb3] transition-colors",
+      "consolidated": "cp-j",
+      "classes": [
+        "text-sm",
+        "text-[#aaa]",
+        "hover:text-[#00ffb3]",
+        "transition-colors"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "font-size: 0.875rem; line-height: 1.25rem; color: #aaa; transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms",
+      "frequency": 5,
+      "bytesSaved": 270
+    },
+    {
+      "original": "w-12 h-12 rounded-xl mb-4 flex items-center justify-center text-2xl",
+      "consolidated": "cp-r",
+      "classes": [
+        "w-12",
+        "h-12",
+        "rounded-xl",
+        "mb-4",
+        "flex",
+        "items-center",
+        "justify-center",
+        "text-2xl"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "width: 3rem; height: 3rem; border-radius: 0.75rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; line-height: 2rem",
+      "frequency": 4,
+      "bytesSaved": 252
+    },
+    {
+      "original": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+      "consolidated": "cp-g",
+      "classes": [
+        "max-w-7xl",
+        "mx-auto",
+        "px-4",
+        "sm:px-6",
+        "lg:px-8"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "max-width: 80rem; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem",
+      "frequency": 7,
+      "bytesSaved": 238
+    },
+    {
+      "original": "text-white font-semibold mt-0.5",
+      "consolidated": "cp-d",
+      "classes": [
+        "text-white",
+        "font-semibold",
+        "mt-0.5"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "--tw-text-opacity: 1; color: rgb(255 255 255 / var(--tw-text-opacity, 1)); font-weight: 600; margin-top: 0.125rem",
+      "frequency": 8,
+      "bytesSaved": 216
+    },
+    {
+      "original": "text-[0.6rem] text-[#666] mt-1 tracking-widest uppercase",
+      "consolidated": "cp-n",
+      "classes": [
+        "text-[0.6rem]",
+        "text-[#666]",
+        "mt-1",
+        "tracking-widest",
+        "uppercase"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "color: 0.6rem; color: #666; margin-top: 0.25rem; letter-spacing: 0.1em; text-transform: uppercase",
+      "frequency": 4,
+      "bytesSaved": 208
+    },
+    {
+      "original": "flex items-center gap-2 text-[#aaa] text-sm",
+      "consolidated": "cp-l",
+      "classes": [
+        "flex",
+        "items-center",
+        "gap-2",
+        "text-[#aaa]",
+        "text-sm"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "display: flex; align-items: center; gap: 0.5rem; color: #aaa; font-size: 0.875rem; line-height: 1.25rem",
+      "frequency": 5,
+      "bytesSaved": 195
+    },
+    {
+      "original": "nav-link text-sm text-[#aaa] font-medium",
+      "consolidated": "cp-i",
+      "classes": [
+        "nav-link",
+        "text-sm",
+        "text-[#aaa]",
+        "font-medium"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "font-size: 0.875rem; line-height: 1.25rem; color: #aaa; font-weight: 500",
+      "frequency": 5,
+      "bytesSaved": 180
+    },
+    {
+      "original": "relative flex items-start gap-6 md:justify-end aos-slide-left",
+      "consolidated": "cp-0",
+      "classes": [
+        "relative",
+        "flex",
+        "items-start",
+        "gap-6",
+        "md:justify-end",
+        "aos-slide-left"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "position: relative; display: flex; align-items: flex-start; gap: 1.5rem",
+      "frequency": 3,
+      "bytesSaved": 171
+    },
+    {
+      "original": "text-sm accent-green font-mono font-bold",
+      "consolidated": "cp-q",
+      "classes": [
+        "text-sm",
+        "accent-green",
+        "font-mono",
+        "font-bold"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "font-size: 0.875rem; line-height: 1.25rem; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace; font-weight: 700",
+      "frequency": 4,
+      "bytesSaved": 144
+    },
+    {
+      "original": "hover:text-[#00ffb3] transition-colors",
+      "consolidated": "cp-u",
+      "classes": [
+        "hover:text-[#00ffb3]",
+        "transition-colors"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms",
+      "frequency": 4,
+      "bytesSaved": 136
+    },
+    {
+      "original": "countdown-digit rounded-xl py-4 px-2",
+      "consolidated": "cp-m",
+      "classes": [
+        "countdown-digit",
+        "rounded-xl",
+        "py-4",
+        "px-2"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "border-radius: 0.75rem; padding-top: 1rem; padding-bottom: 1rem; padding-left: 0.5rem; padding-right: 0.5rem",
+      "frequency": 4,
+      "bytesSaved": 128
+    },
+    {
+      "original": "text-[#888] text-sm leading-relaxed",
+      "consolidated": "cp-t",
+      "classes": [
+        "text-[#888]",
+        "text-sm",
+        "leading-relaxed"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "color: #888; font-size: 0.875rem; line-height: 1.25rem; line-height: 1.625",
+      "frequency": 4,
+      "bytesSaved": 124
+    },
+    {
+      "original": "text-[#666] text-sm",
+      "consolidated": "cp-e",
+      "classes": [
+        "text-[#666]",
+        "text-sm"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "color: #666; font-size: 0.875rem; line-height: 1.25rem",
+      "frequency": 8,
+      "bytesSaved": 120
+    },
+    {
+      "original": "text-4xl md:text-5xl font-bold",
+      "consolidated": "cp-p",
+      "classes": [
+        "text-4xl",
+        "md:text-5xl",
+        "font-bold"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "font-size: 2.25rem; line-height: 2.5rem; font-weight: 700",
+      "frequency": 4,
+      "bytesSaved": 104
+    },
+    {
+      "original": "text-xs text-[#666] mt-1 tracking-wide",
+      "consolidated": "cp-z",
+      "classes": [
+        "text-xs",
+        "text-[#666]",
+        "mt-1",
+        "tracking-wide"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "font-size: 0.75rem; line-height: 1rem; color: #666; margin-top: 0.25rem; letter-spacing: 0.025em",
+      "frequency": 3,
+      "bytesSaved": 102
+    },
+    {
+      "original": "card-lift rounded-xl p-4 text-center",
+      "consolidated": "cp-y",
+      "classes": [
+        "card-lift",
+        "rounded-xl",
+        "p-4",
+        "text-center"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "border-radius: 0.75rem; padding: 1rem; text-align: center",
+      "frequency": 3,
+      "bytesSaved": 96
+    },
+    {
+      "original": "text-center mb-16 aos-fade",
+      "consolidated": "cp-o",
+      "classes": [
+        "text-center",
+        "mb-16",
+        "aos-fade"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "text-align: center; margin-bottom: 4rem",
+      "frequency": 4,
+      "bytesSaved": 88
+    },
+    {
+      "original": "hover:text-[#00ffb3] transition-colors underline",
+      "consolidated": "cp-1",
+      "classes": [
+        "hover:text-[#00ffb3]",
+        "transition-colors",
+        "underline"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; text-decoration-line: underline",
+      "frequency": 2,
+      "bytesSaved": 88
+    },
+    {
+      "original": "font-bold text-white mb-2",
+      "consolidated": "cp-s",
+      "classes": [
+        "font-bold",
+        "text-white",
+        "mb-2"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "font-weight: 700; --tw-text-opacity: 1; color: rgb(255 255 255 / var(--tw-text-opacity, 1)); margin-bottom: 0.5rem",
+      "frequency": 4,
+      "bytesSaved": 84
+    },
+    {
+      "original": "text-sm font-semibold text-white",
+      "consolidated": "cp-w",
+      "classes": [
+        "text-sm",
+        "font-semibold",
+        "text-white"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "font-size: 0.875rem; line-height: 1.25rem; font-weight: 600; --tw-text-opacity: 1; color: rgb(255 255 255 / var(--tw-text-opacity, 1))",
+      "frequency": 3,
+      "bytesSaved": 84
+    },
+    {
+      "original": "w-full object-cover rounded-2xl",
+      "consolidated": "cp-x",
+      "classes": [
+        "w-full",
+        "object-cover",
+        "rounded-2xl"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "width: 100%; -o-object-fit: cover; object-fit: cover; border-radius: 1rem",
+      "frequency": 3,
+      "bytesSaved": 81
+    },
+    {
+      "original": "section-tag mb-3",
+      "consolidated": "cp-h",
+      "classes": [
+        "section-tag",
+        "mb-3"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "margin-bottom: 0.75rem",
+      "frequency": 6,
+      "bytesSaved": 72
+    },
+    {
+      "original": "accent-green glow-green",
+      "consolidated": "cp-v",
+      "classes": [
+        "accent-green",
+        "glow-green"
+      ],
+      "excludedClasses": [],
+      "cssDeclarations": "",
+      "frequency": 3,
+      "bytesSaved": 57
+    }
+  ],
+  "metrics": {
+    "totalFilesScanned": 1,
+    "totalFilesModified": 0,
+    "totalClassStringsFound": 140,
+    "uniqueClassPatterns": 28,
+    "consolidatedPatterns": 28,
+    "totalOccurrencesReplaced": 140,
+    "originalTotalBytes": 50093,
+    "optimizedTotalBytes": 46961,
+    "bytesSaved": 5892,
+    "percentageReduction": 6.252370590701295,
+    "originalCSSBytes": 0,
+    "consolidatedCSSBytes": 2760,
+    "netCSSChange": 2760,
+    "estimatedParseTimeSavedMs": 0.30585937500000004,
+    "estimatedRenderTimeSavedMs": 0.15292968750000002,
+    "topConsolidations": [
+      {
+        "original": "w-full text-left py-5 flex items-center justify-between gap-4 hover:text-[#00ffb3] transition-colors group",
+        "consolidated": "cp-a",
+        "frequency": 9,
+        "bytesSaved": 918
+      },
+      {
+        "original": "font-semibold text-white group-hover:text-[#00ffb3] transition-colors",
+        "consolidated": "cp-b",
+        "frequency": 9,
+        "bytesSaved": 585
+      },
+      {
+        "original": "faq-icon text-[#00ffb3] text-xl font-light flex-shrink-0",
+        "consolidated": "cp-c",
+        "frequency": 9,
+        "bytesSaved": 468
+      },
+      {
+        "original": "relative z-10 flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center",
+        "consolidated": "cp-k",
+        "frequency": 5,
+        "bytesSaved": 395
+      },
+      {
+        "original": "text-[#aaa] pb-5 text-sm leading-relaxed",
+        "consolidated": "cp-f",
+        "frequency": 8,
+        "bytesSaved": 288
+      },
+      {
+        "original": "text-sm text-[#aaa] hover:text-[#00ffb3] transition-colors",
+        "consolidated": "cp-j",
+        "frequency": 5,
+        "bytesSaved": 270
+      },
+      {
+        "original": "w-12 h-12 rounded-xl mb-4 flex items-center justify-center text-2xl",
+        "consolidated": "cp-r",
+        "frequency": 4,
+        "bytesSaved": 252
+      },
+      {
+        "original": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+        "consolidated": "cp-g",
+        "frequency": 7,
+        "bytesSaved": 238
+      },
+      {
+        "original": "text-white font-semibold mt-0.5",
+        "consolidated": "cp-d",
+        "frequency": 8,
+        "bytesSaved": 216
+      },
+      {
+        "original": "text-[0.6rem] text-[#666] mt-1 tracking-widest uppercase",
+        "consolidated": "cp-n",
+        "frequency": 4,
+        "bytesSaved": 208
+      }
+    ]
+  }
+}
